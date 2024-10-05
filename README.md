@@ -1,4 +1,5 @@
 Fatec - Engenharia de Software - BD 2024-2
+<<<<<<< HEAD
 
 We see three critical differences between programming and software engineering: time, scale, and the trade-offs at play. On a software engineering project, engineers need to be more concerned with the passage of time and the eventual need for change. In a software engineering organization, we need to be more concerned about scale and efficiency, both for the software we produce as well as for the organization that is producing it. Finally, as software engineers, we are asked to make more complex decisions with higher-stakes outcomes, often based on imprecise estimates of time and growth.
 
@@ -13,3 +14,5 @@ Projeto de Engenharia de Software: trata-se da criação de algo, um espoco para
 Organização de Engenharia de Software: é responsável por gerenciar o projeto e os engenheiros, verificando o desempenho e eficiência para checando se ambos estão de acordo com a proposta de criação de um projeto.
 
 Engenheiros de Software: são os que atuam diretamente com a criação dos projetos, criando, modelando, testando. Suas decisões podem levar a consequências positivas e negativas pois influenciam no resultado do projeto.
+=======
+>>>>>>> 1439a07fdfbf3d9c44f3f2910e9d79ad4d5d86ad
