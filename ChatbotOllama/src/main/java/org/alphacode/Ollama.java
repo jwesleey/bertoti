@@ -16,7 +16,7 @@ public class Ollama {
 
         OptionsBuilder options = new OptionsBuilder();
         options.setTemperature(0.8F);  // Menos aleatório, mais criativo
-        options.setTopP(0.7F);         // Mais coerentes
+        options.setTopP(0.5F);         // Mais coerentes
         api.setRequestTimeoutSeconds(300);
         OllamaResult result = api.generate("gemma2:2b", text, true, options.build());
         return result.getResponse();
