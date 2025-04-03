@@ -1,0 +1,82 @@
+<header>
+  <section id="logo">
+    <img src="/assets/images/oscar.jpg" alt="Logo" style="width: 250px">
+  </section>
+</header>
+
+<button mat-button (click)="openGlassSnackbar()">Mostrar Notificação</button>
+
+<section id="text">
+  <div>
+    <h2 id="title1">Bem-vindo à Votação do Oscar 2025!</h2>
+    <p>
+      A temporada de premiação chegou e com ela uma seleção incrível de filmes que marcaram o ano de 2025! <br>
+      A Academia de Artes e Ciências Cinematográficas reúne as obras mais aclamadas da indústria, trazendo
+      histórias emocionantes, performances inesquecíveis e inovações cinematográficas que estão dando o que falar.
+    </p>
+  </div>
+</section>
+
+<section id="movies">
+  @for (movie of movies; track movie.src) {
+  <div class="images-block" (click)="openPopup(movie)">
+    <img [src]="movie.src" [alt]="movie.alt">
+  </div>
+  }
+</section>
+
+@if (showPopup) {
+<div class="popup" (click)="closePopup()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    <h3>{{ selectedMovie?.title }}</h3>
+    <img [src]="selectedMovie?.src" [alt]="selectedMovie?.alt" style="width: 300px;">
+    <p><strong>Ano:</strong> {{ selectedMovie?.year }}</p>
+    <p>{{ selectedMovie?.description }}</p>
+    <button (click)="closePopup()">Fechar</button>
+  </div>
+</div>
+}
+
+<section id="votar">
+  <button id="btnV" (click)="votar()">Votar</button>
+</section>
+
+@if(showPopupVote){
+<div class="popup" (click)="closePopup()">
+  <div class="popup-content" (click)="$event.stopPropagation()">
+    <select id="nameMovie" [(ngModel)]="selectedMovieV">
+      @for (movie of movies; track movie.src){
+      <option [ngValue]="movie">
+        {{movie.title}}
+      </option>
+      }
+    </select>
+    <div>
+      @if (selectedMovieV) {
+      <div id="images-vote">
+        <img [src]="selectedMovieV.src" [alt]="selectedMovieV.alt">
+      </div>
+      }
+    </div>
+    <input [(ngModel)]="email" type="text" placeholder="Digite seu e-mail">
+    <br>
+    <textarea id="campoTexto" [(ngModel)]="critica" rows="5" cols="50"
+      placeholder="Escreva aqui a sua crítica..."></textarea>
+    <br>
+    <div class="button-container">
+      <button id="btnVote" (click)="voto()">Votar</button>
+      <button id="btnClose" (click)="closePopup()">Voltar</button>
+    </div>
+  </div>
+</div>c
+}
+
+<footer>
+  <section id="endpage">
+    <div class="finalpage">
+      <p>
+        A project by JW
+      </p>
+    </div>
+  </section>
+</footer>
