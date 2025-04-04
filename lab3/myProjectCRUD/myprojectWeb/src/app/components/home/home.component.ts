@@ -1,9 +1,8 @@
-import { CommonModule} from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-
+import { ApiService } from '../../api.service';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
+
 export class HomeComponent {
   movies = [
     { src: '/assets/images/im_still_here.jpg', alt: 'Poster do filme I\'m Still Here', title: 'I\'m Still Here', description: 'Um drama emocionante sobre resiliência.', year: '2025' },
@@ -26,16 +26,12 @@ export class HomeComponent {
     { src: '/assets/images/Nickel_Boys.jpg', alt: 'Poster do filme Nickel Boys', title: 'Nickel Boys', description: 'Um drama sobre injustiça.', year: '2025' }
   ];
 
-
   showPopup = false;
   showPopupVote = false;
   selectedMovie: any = null;
   selectedMovieV: any = null;
   email!: string;
   critica!: string;
-
-
-
 
   openPopup(movie: any) {
     this.selectedMovie = movie;
@@ -56,44 +52,69 @@ export class HomeComponent {
 
   voto() {
     this.showPopupVote = true;
-
-    /*if (this.email.trim() === "" || this.critica.trim() === "") {
-      this.mostrarSweetAlertErro();
-    } else {
-      this.mostrarSweetAlert();
-    }*/
   }
 
   votar() {
+    this.selectedMovieV = this.selectedMovie;
     this.showPopupVote = true;
   }
 
-  /*mostrarSweetAlert() {
-    Swal.fire({
-      title: 'Operação realizada!',
-      text: 'Você completou a ação com sucesso.',
-      icon: 'success',
-      confirmButtonText: 'Ok',
+  // constructor(private snackBar: MatSnackBar) { }
+
+  openGlassSnackbar() {
+    this.snackBar.open(' Notificação com Glassmorphism!', 'Fechar', {
+      duration: 4000,
+      horizontalPosition: 'right', // 'start' | 'center' | 'end' | 'left' | 'right'
+      verticalPosition: 'bottom', // 'top' | 'bottom'
+      panelClass: ['glass-snackbar'] // Aplica o estilo personalizado
     });
   }
 
-  mostrarSweetAlertErro() {
-    Swal.fire({
-      title: 'Erro!',
-      text: 'E-mail e Crítica são campos obrigatórios.',
-      icon: 'error',
-      confirmButtonText: 'Ok',
-    });
-  }*/
+  constructor(private snackBar: MatSnackBar, private apiService: ApiService) { }
 
-    constructor(private snackBar: MatSnackBar) {}
-
-    openGlassSnackbar() {
-      this.snackBar.open(' Notificação com Glassmorphism!', 'Fechar', {
-        duration: 4000,
-        horizontalPosition: 'right', // 'start' | 'center' | 'end' | 'left' | 'right'
-        verticalPosition: 'bottom', // 'top' | 'bottom'
-        panelClass: ['glass-snackbar'] // Aplica o estilo personalizado
+  enviarVoto() {
+    if (!this.email || !this.critica) {
+      this.snackBar.open('Email e crítica são obrigatórios!', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom',
+        panelClass: ['glass-snackbar']
       });
+      return;
     }
+
+    const voto = {
+      filme: this.selectedMovieV.title,
+      email: this.email,
+      critica: this.critica
+    };
+
+    this.apiService.criarvoto(voto).subscribe({
+      next: response => {
+        this.snackBar.open('Voto enviado com sucesso', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'bottom',
+          panelClass: ['glass-snackbar']
+        });
+        this.closePopup();
+      },
+      error: (error) => {
+        this.snackBar.open('Erro ao enviar o voto. Tente novamente.', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'bottom',
+          panelClass: ['glass-snackbar']
+        });
+      }
+    });
+  }
+
+  enviar() {
+    const dados = { exemplo: 'teste' };
+    this.apiService.enviarDados(dados).subscribe({
+      next: (response) => console.log('Sucesso:', response),
+      error: (error) => console.error('Erro:', error)
+    });
+  }
 }

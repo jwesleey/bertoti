@@ -1,7 +1,11 @@
 package lab3.SpringBoot.Movies;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "movies")
 public class Movies {
@@ -12,21 +16,5 @@ public class Movies {
 
     @Column(name = "name_mov", length = 50)
     private String nameMov;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNameMov() {
-        return nameMov;
-    }
-
-    public void setNameMov(String nameMov) {
-        this.nameMov = nameMov;
-    }
 
 }
