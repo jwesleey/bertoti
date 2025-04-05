@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ApiService } from '../../api.service';
+import { VotesService } from '../../services/votes.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +20,7 @@ export class HomeComponent {
     { src: '/assets/images/emilia.jpg', alt: 'Poster do filme Emilia', title: 'Emilia Perez', description: 'Um conto histórico poderoso.', year: '2025' },
     { src: '/assets/images/substance.jpg', alt: 'Poster do filme The Substance', title: 'The Substance', description: 'Um thriller psicológico intenso.', year: '2025' },
     { src: '/assets/images/The_Brutalist.png', alt: 'Poster do filme The Brutalist', title: 'The Brutalist', description: 'Uma obra-prima arquitetônica.', year: '2025' },
-    { src: '/assets/images/onesheet.jpg', alt: 'Poster do filme One Sheet', title: 'One Sheet', description: 'Uma comédia leve e divertida.', year: '2025' },
+    { src: '/assets/images/onesheet.jpg', alt: 'Poster do filme Wicked', title: 'Wicked', description: 'Uma comédia leve e divertida.', year: '2025' },
     { src: '/assets/images/conclave.jpg', alt: 'Poster do filme Conclave', title: 'Conclave', description: 'Intriga política no Vaticano.', year: '2025' },
     { src: '/assets/images/acompleteunknow.jpg', alt: 'Poster do filme A Complete Unknown', title: 'A Complete Unknown', description: 'A jornada de um ícone musical.', year: '2025' },
     { src: '/assets/images/Nickel_Boys.jpg', alt: 'Poster do filme Nickel Boys', title: 'Nickel Boys', description: 'Um drama sobre injustiça.', year: '2025' }
@@ -70,7 +70,7 @@ export class HomeComponent {
     });
   }
 
-  constructor(private snackBar: MatSnackBar, private apiService: ApiService) { }
+  constructor(private snackBar: MatSnackBar, private votesService: VotesService) { }
 
   enviarVoto() {
     if (!this.email || !this.critica) {
@@ -89,7 +89,9 @@ export class HomeComponent {
       critica: this.critica
     };
 
-    this.apiService.criarvoto(voto).subscribe({
+    console.log('Dados do voto:', voto); 
+  
+    this.votesService.criarvoto(voto).subscribe({
       next: response => {
         this.snackBar.open('Voto enviado com sucesso', 'Fechar', {
           duration: 3000,
@@ -107,14 +109,6 @@ export class HomeComponent {
           panelClass: ['glass-snackbar']
         });
       }
-    });
-  }
-
-  enviar() {
-    const dados = { exemplo: 'teste' };
-    this.apiService.enviarDados(dados).subscribe({
-      next: (response) => console.log('Sucesso:', response),
-      error: (error) => console.error('Erro:', error)
     });
   }
 }
