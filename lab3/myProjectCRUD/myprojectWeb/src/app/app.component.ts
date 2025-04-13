@@ -12,15 +12,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrl: './app.component.css'
 })
 
-export class AppComponent implements OnInit {
+export class AppComponent  {
   title = 'myprojectWeb';
   message: string = '';
    url =  'http://localhost:8080/';
 
   constructor(private http: HttpClient){}
 
-  ngOnInit() {
+  /*ngOnInit() {
     this.http.get<string>('http://localhost:8080/api/test', { responseType: 'text' as 'json' })
     .subscribe((response) => this.message = response)
-  }
+  }*/
 }

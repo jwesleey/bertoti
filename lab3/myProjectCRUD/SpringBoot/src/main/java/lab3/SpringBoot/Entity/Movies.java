@@ -15,4 +15,5 @@ public class Movies {
     private Integer id_mov;
 
     private String name_mov;
+
 }

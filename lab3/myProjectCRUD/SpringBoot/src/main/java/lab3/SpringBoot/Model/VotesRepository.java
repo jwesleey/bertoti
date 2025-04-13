@@ -1,4 +1,4 @@
-package lab3.SpringBoot.Repository;
+package lab3.SpringBoot.Model;
 
 import lab3.SpringBoot.Entity.Votes;
 import org.springframework.data.jpa.repository.JpaRepository;

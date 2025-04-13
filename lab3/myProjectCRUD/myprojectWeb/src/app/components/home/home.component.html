@@ -1,11 +1,11 @@
-<header>
+<header [ngClass]="{ 'sticky': stickyHeader }">
   <section id="logo">
-    <img src="/assets/images/oscar.jpg" alt="Logo" style="width: 250px">
+    <img src="/assets/images/oscar.jpg" alt="Logo">
   </section>
 </header>
 
-<button mat-button (click)="openGlassSnackbar()">Mostrar Notificação</button>
-
+<!--<button mat-button (click)="openGlassSnackbar()">Mostrar Notificação</button>
+-->
 <section id="text">
   <div>
     <h2 id="title1">Bem-vindo à Votação do Oscar 2025!</h2>
@@ -28,11 +28,12 @@
 @if (showPopup) {
 <div class="popup" (click)="closePopup()">
   <div class="popup-content" (click)="$event.stopPropagation()">
+    <button (click)="closePopup()">Fechar</button>
     <h3>{{ selectedMovie?.title }}</h3>
-    <img [src]="selectedMovie?.src" [alt]="selectedMovie?.alt" style="width: 300px;">
+    <img [src]="selectedMovie?.src" [alt]="selectedMovie?.alt">
     <p><strong>Ano:</strong> {{ selectedMovie?.year }}</p>
     <p>{{ selectedMovie?.description }}</p>
-    <button (click)="closePopup()">Fechar</button>
+
   </div>
 </div>
 }
@@ -44,6 +45,8 @@
 @if(showPopupVote){
 <div class="popup" (click)="closePopup()">
   <div class="popup-content" (click)="$event.stopPropagation()">
+    <h3>Vote no filme que você mais gostou!</h3>
+    <p>Escolha um filme da lista abaixo e escreva sua crítica.</p>
     <select id="nameMovie" [(ngModel)]="selectedMovieV">
       @for (movie of movies; track movie.src){
       <option [ngValue]="movie">
@@ -58,9 +61,9 @@
       </div>
       }
     </div>
-    <input [(ngModel)]="email" type="text" placeholder="Digite seu e-mail">
+    <input [(ngModel)]="email" type="email" placeholder="Digite seu e-mail" required="true" />
     <br>
-    <textarea id="campoTexto" [(ngModel)]="critica" rows="5" cols="50"
+    <textarea id="campoTexto" [(ngModel)]="critica" rows="5" cols="50" draggable="false" required="true" minlength="10" maxlength="500" wrap="soft"
       placeholder="Escreva aqui a sua crítica..."></textarea>
     <br>
     <div class="button-container">
@@ -68,7 +71,7 @@
       <button id="btnClose" (click)="closePopup()">Voltar</button>
     </div>
   </div>
-</div>c
+</div>
 }
 
 <footer>

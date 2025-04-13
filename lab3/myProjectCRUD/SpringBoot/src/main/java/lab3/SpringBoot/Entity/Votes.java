@@ -16,5 +16,6 @@ public class Votes {
 
     @ManyToOne
     @JoinColumn(name = "id_mov")
-    private Movies id_mov;
+    private Movies movie;
+
 }
