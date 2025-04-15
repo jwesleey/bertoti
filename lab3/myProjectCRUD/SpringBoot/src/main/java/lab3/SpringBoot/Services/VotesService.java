@@ -1,7 +1,7 @@
-package lab3.SpringBoot.Services;
+package lab3.springboot.services;
 
-import lab3.SpringBoot.Entity.Votes;
-import lab3.SpringBoot.Model.VotesRepository;
+import lab3.springboot.entity.Votes;
+import lab3.springboot.repository.VotesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

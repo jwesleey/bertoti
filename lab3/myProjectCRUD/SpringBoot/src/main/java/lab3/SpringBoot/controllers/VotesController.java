@@ -1,10 +1,10 @@
-package lab3.SpringBoot.controllers;
+package lab3.springboot.controllers;
 
-import lab3.SpringBoot.DTO.VotesDTO;
-import lab3.SpringBoot.Entity.Movies;
-import lab3.SpringBoot.Entity.Votes;
-import lab3.SpringBoot.Services.MoviesService;
-import lab3.SpringBoot.Services.VotesService;
+import lab3.springboot.dto.VotesDTO;
+import lab3.springboot.entity.Movies;
+import lab3.springboot.entity.Votes;
+import lab3.springboot.services.MoviesService;
+import lab3.springboot.services.VotesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

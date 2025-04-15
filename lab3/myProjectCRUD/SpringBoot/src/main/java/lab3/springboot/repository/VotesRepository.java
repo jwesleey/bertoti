@@ -1,6 +1,6 @@
-package lab3.SpringBoot.Model;
+package lab3.springboot.repository;
 
-import lab3.SpringBoot.Entity.Votes;
+import lab3.springboot.entity.Votes;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;

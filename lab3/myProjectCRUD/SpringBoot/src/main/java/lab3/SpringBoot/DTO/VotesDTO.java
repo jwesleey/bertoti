@@ -1,4 +1,4 @@
-package lab3.SpringBoot.DTO;
+package lab3.springboot.dto;
 
 import lombok.Data;
 

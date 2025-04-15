@@ -1,6 +1,6 @@
-package lab3.SpringBoot.Model;
+package lab3.springboot.repository;
 
-import lab3.SpringBoot.Entity.Movies;
+import lab3.springboot.entity.Movies;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
