@@ -6,9 +6,10 @@ import lab3.springboot.entity.Votes;
 import lab3.springboot.services.MoviesService;
 import lab3.springboot.services.VotesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
@@ -22,7 +23,7 @@ public class VotesController {
     private MoviesService moviesService;
 
 
-    @PostMapping
+    @PostMapping("/votar")
     public Votes saveVote(@RequestBody VotesDTO votesDTO) {
         System.out.println("Nome do filme recebido (VotesController): \"" + votesDTO.getName_mov() + "\"");
 
@@ -35,9 +36,61 @@ public class VotesController {
         Movies movie = moviesOptional.get();
 
         Votes vote = new Votes();
-        vote.setEmail_user(votesDTO.getEmail_user());
-        vote.setCritic_voto(votesDTO.getCritic_voto());
+        vote.setEmailUser(votesDTO.getEmail_user());
+        vote.setCriticVote(votesDTO.getCritic_voto());
         vote.setMovie(movie);
         return votesService.save(vote);
+
+    }
+
+    @GetMapping("/filme/{name_mov}")
+    public List<Votes> getVotesByMovie(@PathVariable String name_mov) {
+        Optional<Movies> moviesOptional = moviesService.findByName_mov(name_mov);
+        if (moviesOptional.isEmpty()) {
+            throw new RuntimeException("Filme não encontrado");
+        }
+        return (List<Votes>) votesService.findByMovie(moviesOptional.get());
+    }
+
+
+    @GetMapping("/ranking")
+    public List<Map<String, Object>> getRanking() {
+        List<Object[]> rankingData = votesService.getVotesRanking();
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (Object[] data : rankingData) {
+            Map<String, Object> movieData = new HashMap<>();
+            movieData.put("name_mov", data[0]);
+            movieData.put("vote_count", ((Number) data[1]).intValue());
+            result.add(movieData);
+        }
+        return result;
+    }
+
+
+    @GetMapping("/meuvoto")
+    public List<Votes> getVotesByEmail(@RequestParam("email_user") String emailUser) {
+        return votesService.findByEmailUser(emailUser);
+    }
+
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Map<String, String>> deleteVote(@RequestBody String emailUser) {
+        votesService.deleteVote(emailUser);
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Voto deletado com sucesso" + emailUser);
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/editar")
+    public ResponseEntity<Map<String, String>> updateVote(@RequestBody VotesDTO votesDTO) {
+        if (votesDTO.getCritic_voto() == null || votesDTO.getCritic_voto().trim().isEmpty()) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "A crítica está vazia");
+            return ResponseEntity.badRequest().body(error);
+        }
+        votesService.updateVote(votesDTO.getEmail_user(), votesDTO.getCritic_voto());
+        Map<String, String> success = new HashMap<>();
+        success.put("message", "Voto atualizado com sucesso");
+        return ResponseEntity.ok(success);
     }
 }

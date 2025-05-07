@@ -13,4 +13,5 @@ public interface MoviesRepository extends JpaRepository<Movies, Integer> {
 
     @Query("SELECT m FROM Movies m WHERE m.name_mov = :nameMov")
     Optional<Movies> findByName_mov(@Param("nameMov") String nameMov);
+
 }

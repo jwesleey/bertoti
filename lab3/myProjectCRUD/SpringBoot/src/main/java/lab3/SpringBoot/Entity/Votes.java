@@ -8,11 +8,15 @@ import lombok.Data;
 public class Votes {
 
     @Id
+    @Column(name = "id_voto")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_voto;
+    private Integer idVote;
 
-    private String email_user;
-    private String critic_voto;
+    @Column(unique = true, name = "email_user")
+    private String emailUser;
+
+    @Column(name = "critic_voto")
+    private String criticVote;
 
     @ManyToOne
     @JoinColumn(name = "id_mov")
