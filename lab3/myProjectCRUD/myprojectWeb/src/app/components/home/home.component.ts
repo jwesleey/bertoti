@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener} from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { VotesService } from '../../services/votes.service';
@@ -7,8 +7,8 @@ import { VotesService } from '../../services/votes.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, 
-  FormsModule,
+  imports: [CommonModule,
+    FormsModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -90,14 +90,20 @@ export class HomeComponent {
 
   showPopup = false;
   showPopupVote = false;
+  showPopupMyVote = false;
+  showRankingPopup = false;
   selectedMovie: any = null;
   selectedMovieV: any = null;
   email!: string;
   critica!: string;
-  stickyHeader =false;
+  searchEmail!: string;
+  votes: any[] = [];
+  editingVote: any = null;
+  ranking: { name_mov: string, vote_count: number }[] = [];
+  stickyHeader = false;
 
   @HostListener('window:scroll', [])
-  onWindowScroll(){
+  onWindowScroll() {
     this.stickyHeader = window.scrollY > 1;
   }
 
@@ -112,6 +118,12 @@ export class HomeComponent {
     this.showPopupVote = false;
     this.selectedMovie = null;
     this.selectedMovieV = null;
+    this.showPopupMyVote = false;
+    this.email = '';
+    this.critica = ''
+    this.searchEmail = '';
+    this.editingVote = null;
+    this.votes = [];
   }
 
   selectedMovieVoted(id: any) {
@@ -127,13 +139,8 @@ export class HomeComponent {
     this.showPopupVote = true;
   }
 
-  openGlassSnackbar() {
-    this.snackBar.open(' Notificação com Glassmorphism!', 'Fechar', {
-      duration: 4000,
-      horizontalPosition: 'right', // 'start' | 'center' | 'end' | 'left' | 'right'
-      verticalPosition: 'bottom', // 'top' | 'bottom'
-      panelClass: ['glass-snackbar'] // Aplica o estilo personalizado
-    });
+  openMyVotePopup() {
+    this.showPopupMyVote = true;
   }
 
   constructor(private snackBar: MatSnackBar, private votesService: VotesService) { }
@@ -143,8 +150,8 @@ export class HomeComponent {
       this.snackBar.open('Email e crítica são obrigatórios!', 'Fechar', {
         duration: 3000,
         horizontalPosition: 'right',
-        verticalPosition: 'bottom',
-        panelClass: ['glass-snackbar']
+        verticalPosition: 'top',
+        panelClass: ['glass-snackbar-error']
       });
       return;
     }
@@ -155,26 +162,150 @@ export class HomeComponent {
       name_mov: this.selectedMovieV.title
     };
 
-    console.log('Dados do voto:', voto); 
-  
     this.votesService.criarvoto(voto).subscribe({
-      next: response => {
+      next: () => {
         this.snackBar.open('Voto enviado com sucesso', 'Fechar', {
           duration: 3000,
           horizontalPosition: 'right',
-          verticalPosition: 'bottom',
-          panelClass: ['glass-snackbar']
+          verticalPosition: 'top',
+          panelClass: ['glass-snackbar-success']
         });
         this.closePopup();
       },
-      error: (error) => {
+      error: () => {
         this.snackBar.open('Erro ao enviar o voto. Tente novamente.', 'Fechar', {
           duration: 3000,
           horizontalPosition: 'right',
-          verticalPosition: 'bottom',
-          panelClass: ['glass-snackbar']
+          verticalPosition: 'top',
+          panelClass: ['glass-snackbar-error']
         });
       }
     });
+  }
+
+
+  searchVotes() {
+    if (!this.searchEmail) {
+      this.snackBar.open('Por favor, insira um email para buscar.', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['glass-snackbar-error']
+      });
+      return;
+    }
+
+    this.votesService.getVotesByEmail(this.searchEmail).subscribe({
+      next: (response) => {
+        this.votes = response;
+        if (this.votes.length === 0) {
+          this.snackBar.open('Nenhum voto encontrado para este email.', 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['glass-snackbar-error']
+          });
+        }
+      },
+      error: () => {
+        this.snackBar.open('Erro ao buscar os votos. Tente novamente.', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['glass-snackbar-error']
+        });
+      }
+    });
+  }
+
+  editVote(vote: any) {
+    this.editingVote = { ...vote, criticVote: vote.criticVote || '' };
+  }
+
+  saveEditVote() {
+    if (!this.editingVote.criticVote) {
+      this.snackBar.open('Crítica é obrigatória!', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['glass-snackbar-error']
+      });
+      return;
+    }
+
+    this.votesService.updateVote({
+      emailUser: this.editingVote.emailUser,
+      criticVote: this.editingVote.criticVote
+    }).subscribe({
+      next: (response) => {
+        console.log('Resposta de updateVote:', response);
+        this.votes = this.votes.map(v => v.emailUser === this.editingVote.emailUser ? { ...v, criticVote: this.editingVote.criticVote } : v);
+        this.editingVote = null;
+        this.snackBar.open('Voto editado com sucesso', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['glass-snackbar-success']
+        });
+      },
+      error: (error) => {
+        console.error('Erro ao editar voto:', JSON.stringify(error, null, 2));
+        this.snackBar.open('Erro ao editar o voto. Tente novamente.', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['glass-snackbar-error']
+        });
+      }
+    });
+  }
+
+  deleteVote(email: string) {
+    this.votesService.deleteVote(email).subscribe({
+      next: (response) => {
+        console.log('Resposta de deleteVote:', response);
+        this.votes = [];
+        this.searchEmail = '';
+        this.snackBar.open('Voto deletado com sucesso', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['glass-snackbar-success']
+        });
+      },
+      error: (error) => {
+        console.error('Erro ao deletar voto:', error);
+        this.snackBar.open('Erro ao deletar o voto. Tente novamente.', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['glass-snackbar-error']
+        });
+      }
+    });
+  }
+
+
+  viewVotesRanking() {
+    this.votesService.getVotesRanking().subscribe({
+      next: (response) => {
+        this.ranking = response;
+        this.showRankingPopup = true;
+
+      },
+      error: () => {
+        this.snackBar.open('Erro ao carregar o ranking. Tente novamente.', 'Fechar', {
+          duration: 3000,
+          horizontalPosition: 'center',
+          verticalPosition: 'top',
+          panelClass: ['glass-snackbar-error']
+        });
+      }
+    });
+  }
+
+  closeRankingPopup() {
+    this.showRankingPopup = false;
+    this.ranking = [];
   }
 }

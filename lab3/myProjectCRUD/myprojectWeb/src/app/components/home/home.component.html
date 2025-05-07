@@ -4,8 +4,6 @@
   </section>
 </header>
 
-<!--<button mat-button (click)="openGlassSnackbar()">Mostrar Notificação</button>
--->
 <section id="text">
   <div>
     <h2 id="title1">Bem-vindo à Votação do Oscar 2025!</h2>
@@ -28,19 +26,22 @@
 @if (showPopup) {
 <div class="popup" (click)="closePopup()">
   <div class="popup-content" (click)="$event.stopPropagation()">
-    <button (click)="closePopup()">Fechar</button>
+    <button id="btnClose" (click)="closePopup()">Fechar</button>
     <h3>{{ selectedMovie?.title }}</h3>
     <img [src]="selectedMovie?.src" [alt]="selectedMovie?.alt">
     <p><strong>Ano:</strong> {{ selectedMovie?.year }}</p>
     <p>{{ selectedMovie?.description }}</p>
-
   </div>
 </div>
 }
 
-<section id="votar">
+<section class="buttons">
   <button id="btnV" (click)="votar()">Votar</button>
+  <button id="btnMyVote" (click)="openMyVotePopup()">Meu Voto</button>
+  <button id="btnRanking" (click)="viewVotesRanking()">Ver Ranking</button>
 </section>
+
+
 
 @if(showPopupVote){
 <div class="popup" (click)="closePopup()">
@@ -68,10 +69,76 @@
     <br>
     <div class="button-container">
       <button id="btnVote" (click)="enviarVoto()">Votar</button>
-      <button id="btnClose" (click)="closePopup()">Voltar</button>
+      <button id="btnCloseV" (click)="closePopup()">Voltar</button>
     </div>
   </div>
 </div>
+}
+
+@if (showPopupMyVote) {
+  <div class="popup" (click)="closePopup()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+      <h3>Consultar Meu Voto</h3>
+      <p>Digite seu email usado na votação para ver seus votos.</p>
+      <input type="email"  [(ngModel)] ="searchEmail" placeholder="Digite seu e-mail" required="true" />
+      <button id="btnSearchV" (click)="searchVotes()">Buscar</button>
+
+      @if (votes.length > 0) {
+        <div>
+          <h4>Seus votos:</h4>
+          @for (vote of votes; track vote.emailUser) {
+            <div class="vote-item">
+                @if (editingVote && editingVote.emailUser === vote.emailUser) {
+                <textarea [(ngModel)]="editingVote.criticVote" rows="5" cols="50" 
+                draggable="false" required="true"
+                minlength="10" maxlength="500" wrap="soft">
+                </textarea>
+                <button id="btnMyVote" (click)="saveEditVote()">Salvar</button>
+                <button id="btnDeleteV" (click)="editingVote = null">Cancelar</button>
+              } @else {
+                <p><strong>Filme: </strong>{{vote.movie.name_mov}}</p>
+                <p><strong>Crítica: </strong>{{vote.criticVote}}</p>
+                <button id="btnEditV" (click)="editVote(vote)">Editar</button>
+                <button id="btnDeleteV" (click)="deleteVote(vote.emailUser)">Excluir</button>
+              }
+            </div>
+          }
+        </div>
+      }
+      <button id="btnClose" (click)="closePopup()">Fechar</button>
+    </div>
+  </div>
+}
+
+@if (showRankingPopup) {
+  <div class="popup">
+    <div class="popup-content">
+      <h3>Ranking de Votações</h3>
+      @if (ranking.length > 0) {
+        <table class="ranking-table">
+          <thead>
+            <tr>
+              <th>Posição</th>
+              <th>Filme</th>
+              <th>Votos</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of ranking; track item.name_mov; let i = $index) {
+              <tr>
+                <td>{{i + 1}}</td>
+                <td>{{item.name_mov}}</td>
+                <td>{{item.vote_count}}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      } @else {
+        <p>Nenhum voto registrado..</p>
+      }
+      <button (click)="closeRankingPopup()">Fechar</button>
+    </div>
+  </div>
 }
 
 <footer>
