@@ -149,7 +149,17 @@ export class HomeComponent {
     if (!this.email || !this.critica) {
       this.snackBar.open('Email e crítica são obrigatórios!', 'Fechar', {
         duration: 3000,
-        horizontalPosition: 'right',
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+        panelClass: ['glass-snackbar-error']
+      });
+      return;
+    }
+
+    if (!this.selectedMovieV) {
+      this.snackBar.open('Selecione um filme para votar.', 'Fechar', {
+        duration: 3000,
+        horizontalPosition: 'center',
         verticalPosition: 'top',
         panelClass: ['glass-snackbar-error']
       });
@@ -157,7 +167,7 @@ export class HomeComponent {
     }
 
     const voto = {
-      email_user: this.email,
+      email_user: this.email.trim(),
       critic_voto: this.critica,
       name_mov: this.selectedMovieV.title
     };
@@ -166,19 +176,28 @@ export class HomeComponent {
       next: () => {
         this.snackBar.open('Voto enviado com sucesso', 'Fechar', {
           duration: 3000,
-          horizontalPosition: 'right',
+          horizontalPosition: 'center',
           verticalPosition: 'top',
           panelClass: ['glass-snackbar-success']
         });
         this.closePopup();
       },
-      error: () => {
-        this.snackBar.open('Erro ao enviar o voto. Tente novamente.', 'Fechar', {
-          duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top',
-          panelClass: ['glass-snackbar-error']
-        });
+      error: (error) => {
+        if ((error.status === 500 || error.status === 409) && error.error.message === 'Email já utilizado para votação') {
+          this.snackBar.open('Este email já foi utilizado para votação.', 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['glass-snackbar-error']
+          });
+        } else {
+          this.snackBar.open('Erro ao enviar o voto. Tente novamente.', 'Fechar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top',
+            panelClass: ['glass-snackbar-error']
+          });
+        }
       }
     });
   }

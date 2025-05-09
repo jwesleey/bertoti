@@ -48,7 +48,7 @@
   <div class="popup-content" (click)="$event.stopPropagation()">
     <h3>Vote no filme que você mais gostou!</h3>
     <p>Escolha um filme da lista abaixo e escreva sua crítica.</p>
-    <select id="nameMovie" [(ngModel)]="selectedMovieV">
+    <select id="nameMovie" [(ngModel)]="selectedMovieV" required="true">
       @for (movie of movies; track movie.src){
       <option [ngValue]="movie">
         {{movie.title}}
@@ -134,9 +134,9 @@
           </tbody>
         </table>
       } @else {
-        <p>Nenhum voto registrado..</p>
+        <p>Nenhum voto registrado...</p>
       }
-      <button (click)="closeRankingPopup()">Fechar</button>
+      <button id="btnCloseV" (click)="closeRankingPopup()">Fechar</button>
     </div>
   </div>
 }
@@ -150,3 +150,4 @@
     </div>
   </section>
 </footer>
+
