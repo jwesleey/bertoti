@@ -6,11 +6,12 @@ import lab3.springboot.entity.Votes;
 import lab3.springboot.services.MoviesService;
 import lab3.springboot.services.VotesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
-
 
 @RestController
 @RequestMapping("api/votos")
@@ -22,10 +23,8 @@ public class VotesController {
     @Autowired
     private MoviesService moviesService;
 
-
     @PostMapping("/votar")
     public Votes saveVote(@RequestBody VotesDTO votesDTO) {
-        System.out.println("Nome do filme recebido (VotesController): \"" + votesDTO.getName_mov() + "\"");
 
         Optional<Movies> moviesOptional = moviesService.findByName_mov(votesDTO.getName_mov());
 
@@ -33,25 +32,17 @@ public class VotesController {
             throw new RuntimeException("Filme não encontrado");
         }
 
-        Movies movie = moviesOptional.get();
-
-        Votes vote = new Votes();
-        vote.setEmailUser(votesDTO.getEmail_user());
-        vote.setCriticVote(votesDTO.getCritic_voto());
-        vote.setMovie(movie);
-        return votesService.save(vote);
-
-    }
-
-    @GetMapping("/filme/{name_mov}")
-    public List<Votes> getVotesByMovie(@PathVariable String name_mov) {
-        Optional<Movies> moviesOptional = moviesService.findByName_mov(name_mov);
-        if (moviesOptional.isEmpty()) {
-            throw new RuntimeException("Filme não encontrado");
+        if (votesService.isVoted(votesDTO.getEmail_user())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email já utilizado para votação");
+        } else {
+            Movies movie = moviesOptional.get();
+            Votes vote = new Votes();
+            vote.setEmailUser(votesDTO.getEmail_user());
+            vote.setCriticVote(votesDTO.getCritic_voto());
+            vote.setMovie(movie);
+            return votesService.save(vote);
         }
-        return (List<Votes>) votesService.findByMovie(moviesOptional.get());
     }
-
 
     @GetMapping("/ranking")
     public List<Map<String, Object>> getRanking() {
@@ -66,12 +57,10 @@ public class VotesController {
         return result;
     }
 
-
     @GetMapping("/meuvoto")
     public List<Votes> getVotesByEmail(@RequestParam("email_user") String emailUser) {
         return votesService.findByEmailUser(emailUser);
     }
-
 
     @DeleteMapping("/delete")
     public ResponseEntity<Map<String, String>> deleteVote(@RequestBody String emailUser) {

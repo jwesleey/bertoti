@@ -1,7 +1,5 @@
 package lab3.springboot.repository;
 
-
-import lab3.springboot.entity.Movies;
 import lab3.springboot.entity.Votes;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,10 +11,8 @@ import java.util.List;
 
 @Repository
 public interface VotesRepository extends JpaRepository<Votes, Integer> {
-    List<Votes> findByMovie(Movies movie);
 
-    @Query("SELECT COUNT(v) FROM Votes v WHERE v.movie.id_mov = :id_mov")
-    int countByMovie(@Param("id_mov") int idMov);
+    boolean existsByEmailUser(String emailUser);
 
     @Modifying
     @Query("DELETE FROM Votes v WHERE v.emailUser = :email_user")

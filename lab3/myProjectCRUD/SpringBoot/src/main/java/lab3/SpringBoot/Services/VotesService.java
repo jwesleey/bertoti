@@ -1,6 +1,5 @@
 package lab3.springboot.services;
 
-import lab3.springboot.entity.Movies;
 import lab3.springboot.entity.Votes;
 import lab3.springboot.repository.VotesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,18 +19,9 @@ public class VotesService {
         return votesRepository.save(vote);
     }
 
-
-    public List<Votes> findByMovie(Movies movie) {
-        return votesRepository.findByMovie(movie);
-    }
-
     @Transactional
     public void deleteVote(String emailUser) {
         votesRepository.deleteByEmailUser(emailUser);
-    }
-
-    public int countVotes(int id_mov) {
-        return votesRepository.countByMovie(id_mov);
     }
 
     public List<Votes> findByEmailUser(String emailUser) {
@@ -47,5 +37,7 @@ public class VotesService {
         return votesRepository.getVotesRanking();
     }
 
-
+    public boolean isVoted(String emailUser) {
+       return votesRepository.existsByEmailUser(emailUser);
+    }
 }
