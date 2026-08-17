@@ -1,6 +1,6 @@
 <i>Portfólio José Wesley</i>
 
-## Descrição de Projeto - 3º Semestre API
+<h1> Descrição de Projeto - 3º Semestre API</h1>
 
 Em 2025-2
 
@@ -15,7 +15,7 @@ A aplicação será alimentada por um banco de dados relacional, cuidadosamente 
 Com foco em usabilidade e segurança, o Sistema de Ponto visa atender as necessidades específicas do setor, garantindo uma gestão de pessoal mais ágil e confiável.</div>
 
 
-### Tecnologias Utilizadas
+<h3> Tecnologias Utilizadas</h3>
 
 <p align="center">
   <a href="https://skillicons.dev">
@@ -33,30 +33,40 @@ Com foco em usabilidade e segurança, o Sistema de Ponto visa atender as necessi
 >* Angular
 >* MySQL
 >* Postman 
-
 </div>
+
+
 
 ### Contribuições Pessoais
 
 #### Back-End
 
-<details> 
-<summary>Validação de CNPJ</sumarry>
+<details>
+<summary>Validação de CNPJ</summary>
+<br>
+<div align="justify">
+Desenvolvimento de um algoritmo de validação de CNPJ utilizando uma função booleana para verificar se os dados numéricos foram inseridos corretamente e se os dígitos verificadores do CNPJ são válidos.
+</div>
+<br>
+</details>
+<br>
+<details>
+  <summary>Funcionalidade de Login</summary>
+  <br>
+<div align="justify">Criação completa dos itens que compreedem  o processo de login do usuário utilizando a tecnologia de Spring e sua estrutura com os arquivos.
 
+<br>
+Controller, Model Repository, Services e Security com Hashing integrado no segurança das senhas no banco de dados.
+</div>
 </details>
 
-<details> 
-<summary>Funcionalidade de Login</sumarry>
+<h3>Hard Skills</h3>
 
-Criação completa dos itens com compreender o processo de login do usuário utilizando a tecnologia de Spring e sua estrutura com os arquivos 
+<h3>Soft Skills</h3>
 
-> Controller, Model Repository, Services e Security com Hashing integrado no segurança das senhas no banco de dados.
 
-</details>
 
-### Hard Skills
 
-### Soft Skills
 
 
 
