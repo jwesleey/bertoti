@@ -37,9 +37,9 @@ Com foco em usabilidade e segurança, o Sistema de Ponto visa atender as necessi
 
 
 
-### Contribuições Pessoais
+<h2>Contribuições Pessoais</h2>
 
-#### Back-End
+<h3> Back-End</h3>
 
 <details>
 <summary>Validação de CNPJ</summary>
@@ -47,22 +47,39 @@ Com foco em usabilidade e segurança, o Sistema de Ponto visa atender as necessi
 <div align="justify">
 Desenvolvimento de um algoritmo de validação de CNPJ utilizando uma função booleana para verificar se os dados numéricos foram inseridos corretamente e se os dígitos verificadores do CNPJ são válidos.
 </div>
-<br>
 </details>
-<br>
-<details>
-  <summary>Funcionalidade de Login</summary>
-  <br>
-<div align="justify">Criação completa dos itens que compreedem  o processo de login do usuário utilizando a tecnologia de Spring e sua estrutura com os arquivos.
 
 <br>
-Controller, Model Repository, Services e Security com Hashing integrado no segurança das senhas no banco de dados.
+<details>
+  <summary>Funcionalidade de Login e Recuperação de Senha</summary>
+  <br>
+<div align="justify">Criação dos componentes responsáveis pelo processo de autenticação e recuperação de senha de usuários, utilizando Spring.
+
+<br>
+Implementação das camadas Controller, Entity, Service e Security, incluindo aplicação de hash nas senhas para garantir sua segurança e integridade no banco de dados. 
+
+<br>
+No processo de recuperação de senha, foi implementado o envio de um token de validação para o e-mail do usuário, permitindo a redefinição segura da senha.
 </div>
+</details>
+
+<br>
+<details>
+<summary>Criação e Edição de Usuários</summary>
+<br>
+Criação das funcionalidades de cadastro e edição de usuários utilizando Spring.
+
+<br>
+Foram implementados arquivos de Controller, Service, Repository, Model e DTO para estruturar o gerenciamento das informações dos usuários na aplicação.
+
 </details>
 
 <h3>Hard Skills</h3>
 
 <h3>Soft Skills</h3>
+
+teste
+
 
 
 
