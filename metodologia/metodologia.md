@@ -18,7 +18,7 @@ Com foco em usabilidade e segurança, o Sistema de Ponto visa atender as necessi
 
 <p align="center">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=java,spring,vscode,idea,git,github,figma,angular,mysql,postman" />
+    <img src="https://skillicons.dev/icons?i=java,typescript,html,css,spring,angular,mysql,vscode,idea,postman,git,github,figma" />
   </a>
 </p>
 <div>
