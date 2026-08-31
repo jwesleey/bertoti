@@ -4,9 +4,9 @@
 
 Em 2025-2
 
-Empresa parceira - <b>Altave</b>
+Empresa Parceira - [Altave](https://altave.com.br/)
 
-<i>Equipe Vortek</i>
+<i>Equipe [Vortek](https://github.com/Vortek-API/API3Sem)</i> 
 
 <div align ="justify">O <b>"Sistema de Ponto"</b> nomeado pela equipe de <b>"timesync"</b> é uma aplicação web projetada para gerenciar o controle de ponto de funcionários em empresas tercerizadas, especialmente em áreas de manutenção. A plataforma oferece uma solução eficiente para o registro e acompanhamento das horas trabalhadas, otimizando a administração de equipes e assegurando maior precisão nos dados.
 
@@ -126,7 +126,7 @@ Ajuste na função responsável pela conversão dos registros de ponto para o fo
   <br>
   Implementação da interface de recuperação de senha, permitindo que o usuário realize o processo de redefinição de acesso.
   </div>
-</details>
+</details> 
 
 <br>
 <details>
@@ -164,4 +164,26 @@ Ajuste na função responsável pela conversão dos registros de ponto para o fo
 <br>
 <h3>Hard Skills</h3>
 
+<p><b>Java:</b> Autonomia</p>
+<p><b>Spring Boot:</b> Com auxílio</p>
+<p><b>API REST:</b> Com auxílio</p>
+<p><b>TypeScript:</b> Com auxílio</p>
+<p><b>Angular:</b> Com auxílio</p>
+<p><b>HTML / CSS:</b> Autonomia</p>
+<p><b>MySQL:</b> Com auxílio</p>
+<p><b>Git / GitHub:</b> Autonomia</p>
+<p><b>Postman:</b> Autonomia</p>
+<p><b>Figma:</b> Conhecimento básico</p>
+
 <h3>Soft Skills</h3>
+<ul>
+  <li>Trabalho em equipe</li>
+  <li>Comunicação</li>
+  <li>Resolução de problemas</li>
+  <li>Pensamento analítico</li>
+  <li>Organização</li>
+  <li>Atenção aos detalhes</li>
+  <li>Adaptabilidade</li>
+  <li>Proatividade</li>
+  <li>Comprometimento</li>
+</ul>
