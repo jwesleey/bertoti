@@ -57,7 +57,7 @@ As funcionalidades foram desenvolvidas de forma incremental, passando por análi
 Desenvolvimento de um algoritmo para validação de CNPJ utilizando uma função booleana. A implementação verifica os dígitos verificadores do documento, permitindo identificar CNPJs inválidos antes do cadastro.
 
 <div align="center">
-<img src="./assets/validadorCNPJ.png" style="display: block; margin: 15px auto; width: 60%;">
+<img src="./assets/validadorCNPJ.png" style="display: block; margin: 30px auto; width: 60%;">
 </div>
 </div>
 </details>
@@ -71,11 +71,9 @@ A autenticação foi estruturada nas camadas Controller, Service, Entity e Secur
 
 Para a recuperação de senha, foi implementado o envio de um token de validação para o e-mail do usuário, permitindo a redefinição segura da senha.
 
-<div align="center">
-
-<img src="./assets/SenhaTokenService.java.png" style="display: block; margin: 15px auto; width: 60%;">
-<br>
-<img src="./assets/ResetSenhaController.java.png" style="display: block; margin: 15px auto; width: 60%;">
+<div style="display: flex; justify-content: center; gap: 10px; margin: 30px auto;">
+  <img src="./assets/SenhaTokenService.java.png" width="48%">
+  <img src="./assets/ResetSenhaController.java.png" width="48%">
 </div>
 </div>
 </details>
@@ -108,7 +106,7 @@ Ajuste na conversão dos registros de ponto para o formato detalhado de exporta�
 Desenvolvimento dos componentes responsáveis pela navegação da aplicação, incluindo sidebar e header. A estrutura foi organizada para facilitar o acesso às principais funcionalidades e manter um padrão de navegação entre as telas.
 
 <div align="center">
-  <img src="./assets/tela.png" style="display: block; margin: 15px auto; width: 60%;">
+  <img src="./assets/tela.png" style="display: block; margin: 30px auto; width: 60%;">
   </div>
   </div>
 </details>
@@ -129,9 +127,9 @@ Desenvolvimento da interface e da lógica de login e mensagens de notificação 
 
 Implementação da interface de recuperação de senha, integrando o fluxo de redefinição de acesso à funcionalidade desenvolvida no back-end.
 
-<p align="center">
-<img src="./assets/login_timesync.png" style="display: block; margin: 15px auto; width: 70%;">
-</p>
+<div align="center">
+<img src="./assets/login_timesync.png" style="display: block; margin: 30px auto; width: 70%;">
+  </div>
 
   </div>
 </details>
