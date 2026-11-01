@@ -17,7 +17,9 @@ Com foco em usabilidade e segurança, o TimeSync foi desenvolvido para atender �
 <img src="./assets/timesync.jpg" alt="Composição de identidade visual da equipe Vortek e da empresa Altave sobre fundo escuro. À esquerda, um urso estilizado em preto, branco e verde sob o texto VORTEK; ao centro, a cabeça de um guaxinim dentro de um relógio; à direita, o logotipo azul e branco da Altave com o texto ALTAVE e INTELLIGENT MONITORING. A imagem transmite um tom moderno, tecnológico e sério." style="width:80%; margin: 15px auto;"> 
  </div>
 
-<hr style="height: 4px; border: none; background: linear-gradient(to right, #0B2516, #134E35, #0B2516);" />
+<p align="center">
+  <img src="./assets/linha-gradiente.png" width="100%" height="4px" />
+</p>
 
 <h2>Tecnologias Utilizadas</h2>
 
@@ -31,7 +33,9 @@ Com foco em usabilidade e segurança, o TimeSync foi desenvolvido para atender �
 Java · TypeScript · HTML · CSS · Spring Boot  · Angular  · MySQL · VS Code · IntelliJ IDEA · Postman · Figma · Git · GitHub  
 </p>
 
-<hr style="height: 4px; border: none; background: linear-gradient(to right, #0B2516, #134E35, #0B2516);" />
+<p align="center">
+  <img src="./assets/linha-gradiente.png" width="100%" height="4px" />
+</p>
 
 <h2>Metodologia de Desenvolvimento</h2>
 
@@ -42,7 +46,9 @@ das entregas.
 As funcionalidades foram desenvolvidas de forma incremental, passando por análise dos requisitos, implementação, testes e integração com as demais partes da aplicação.
 </p>
 
-<hr style="height: 4px; border: none; background: linear-gradient(to right, #0B2516, #134E35, #0B2516);" />
+<p align="center">
+  <img src="./assets/linha-gradiente.png" width="100%" height="4px" />
+</p>
 
 <h2>Contribuições Pessoais</h2>
 
@@ -172,7 +178,9 @@ Revisão e refatoração de componentes do Front-end, com correção de inconsis
   </div>
 </details>
 
-<hr style="height: 4px; border: none; background: linear-gradient(to right, #0B2516, #134E35, #0B2516);" />
+<p align="center">
+  <img src="./assets/linha-gradiente.png" width="100%" height="4px" />
+</p>
 
 <h3>Hard Skills</h3>
 
@@ -252,7 +260,9 @@ Revisão e refatoração de componentes do Front-end, com correção de inconsis
 </tbody>
 </table>
 
-<hr style="height: 4px; border: none; background: linear-gradient(to right, #0B2516, #134E35, #0B2516);" />
+<p align="center">
+  <img src="./assets/linha-gradiente.png" width="100%" height="4px" />
+</p>
 
 <h3>Soft Skills</h3>
 
