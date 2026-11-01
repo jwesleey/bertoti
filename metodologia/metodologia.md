@@ -12,11 +12,9 @@ A aplicação utiliza um banco de dados relacional, estruturado para garantir a 
 
 Com foco em usabilidade e segurança, o TimeSync foi desenvolvido para atender às necessidades específicas do setor, proporcionando uma gestão de pessoal mais ágil e organizada.</div>
 
-<p align="center">
-<div >
-<p>
-<img src="./assets/timesync.jpg" alt="Composição de identidade visual da equipe Vortek e da empresa Altave sobre fundo escuro. À esquerda, um urso estilizado em preto, branco e verde sob o texto VORTEK; ao centro, a cabeça de um guaxinim dentro de um relógio; à direita, o logotipo azul e branco da Altave com o texto ALTAVE e INTELLIGENT MONITORING. A imagem transmite um tom moderno, tecnológico e sério." style="width:100%; margin: 15px auto;"> 
- </p>
+
+<div align="center">
+<img src="./assets/timesync.jpg" alt="Composição de identidade visual da equipe Vortek e da empresa Altave sobre fundo escuro. À esquerda, um urso estilizado em preto, branco e verde sob o texto VORTEK; ao centro, a cabeça de um guaxinim dentro de um relógio; à direita, o logotipo azul e branco da Altave com o texto ALTAVE e INTELLIGENT MONITORING. A imagem transmite um tom moderno, tecnológico e sério." style="width:80%; margin: 15px auto;"> 
  </div>
 
 <hr style="height: 4px; border: none; background: linear-gradient(to right, #0B2516, #134E35, #0B2516);" />
@@ -55,9 +53,9 @@ As funcionalidades foram desenvolvidas de forma incremental, passando por análi
 <br>
 <div align="justify">
 Desenvolvimento de um algoritmo para validação de CNPJ utilizando uma função booleana. A implementação verifica os dígitos verificadores do documento, permitindo identificar CNPJs inválidos antes do cadastro.
-
-<div align="center">
-<img src="./assets/validadorCNPJ.png" style="display: block; margin: 30px auto; width: 60%;">
+<br>
+<div align="center" style="margin: 30px;">
+<img src="./assets/validadorCNPJ.png" style="display: block; width: 60%;">
 </div>
 </div>
 </details>
@@ -70,8 +68,8 @@ Desenvolvimento de um algoritmo para validação de CNPJ utilizando uma função
 A autenticação foi estruturada nas camadas Controller, Service, Entity e Security, com aplicação de hash nas senhas antes de seu armazenamento no banco de dados.
 
 Para a recuperação de senha, foi implementado o envio de um token de validação para o e-mail do usuário, permitindo a redefinição segura da senha.
-
-<div style="display: flex; justify-content: center; gap: 10px; margin: 30px auto;">
+<br>
+<div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 30px;">
   <img src="./assets/SenhaTokenService.java.png" width="48%">
   <img src="./assets/ResetSenhaController.java.png" width="48%">
 </div>
@@ -105,7 +103,8 @@ Ajuste na conversão dos registros de ponto para o formato detalhado de exporta�
 <div align="justify">
 Desenvolvimento dos componentes responsáveis pela navegação da aplicação, incluindo sidebar e header. A estrutura foi organizada para facilitar o acesso às principais funcionalidades e manter um padrão de navegação entre as telas.
 
-<div align="center">
+<br>
+<div align="center" style="margin: 30px;">
   <img src="./assets/tela.png" style="display: block; margin: 30px auto; width: 60%;">
   </div>
   </div>
@@ -127,7 +126,8 @@ Desenvolvimento da interface e da lógica de login e mensagens de notificação 
 
 Implementação da interface de recuperação de senha, integrando o fluxo de redefinição de acesso à funcionalidade desenvolvida no back-end.
 
-<div align="center">
+<br>
+<div align="center" style="margin: 30px;">
 <img src="./assets/login_timesync.png" style="display: block; margin: 30px auto; width: 70%;">
   </div>
 
