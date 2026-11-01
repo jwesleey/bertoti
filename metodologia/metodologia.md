@@ -53,11 +53,14 @@ As funcionalidades foram desenvolvidas de forma incremental, passando por análi
 <br>
 <div align="justify">
 Desenvolvimento de um algoritmo para validação de CNPJ utilizando uma função booleana. A implementação verifica os dígitos verificadores do documento, permitindo identificar CNPJs inválidos antes do cadastro.
+</div>
+
 <br>
-<div align="center" style="margin: 30px;">
+<p align="center" >
 <img src="./assets/validadorCNPJ.png" style="display: block; width: 60%;">
-</div>
-</div>
+</p>
+<br>
+
 </details>
 
 <details style="margin-bottom: 15px;">
@@ -68,12 +71,14 @@ Desenvolvimento de um algoritmo para validação de CNPJ utilizando uma função
 A autenticação foi estruturada nas camadas Controller, Service, Entity e Security, com aplicação de hash nas senhas antes de seu armazenamento no banco de dados.
 
 Para a recuperação de senha, foi implementado o envio de um token de validação para o e-mail do usuário, permitindo a redefinição segura da senha.
+</div>
+
 <br>
-<div style="display: flex; justify-content: center; align-items: center; gap: 10px; margin: 30px;">
-  <img src="./assets/SenhaTokenService.java.png" width="48%">
-  <img src="./assets/ResetSenhaController.java.png" width="48%">
-</div>
-</div>
+<p align="center" style="display: flex; justify-content: center; align-items: center; gap: 10px">
+  <img src="./assets/SenhaTokenService.java.png" width="48%" /> <img src="./assets/ResetSenhaController.java.png" width="48%" />
+</p>
+<br>
+
 </details>
 
 <details style="margin-bottom: 15px;">
@@ -102,12 +107,14 @@ Ajuste na conversão dos registros de ponto para o formato detalhado de exporta�
   <br>
 <div align="justify">
 Desenvolvimento dos componentes responsáveis pela navegação da aplicação, incluindo sidebar e header. A estrutura foi organizada para facilitar o acesso às principais funcionalidades e manter um padrão de navegação entre as telas.
+  </div>
 
 <br>
-<div align="center" style="margin: 30px;">
-  <img src="./assets/tela.png" style="display: block; margin: 30px auto; width: 60%;">
-  </div>
-  </div>
+<p align="center">
+  <img src="./assets/tela.png" style="display: block; margin: 10px auto; width: 70%;">
+  </p>
+  <br>
+
 </details>
 
 <details style="margin-bottom: 15px;">
@@ -125,13 +132,14 @@ Desenvolvimento dos componentes responsáveis pela navegação da aplicação, i
 Desenvolvimento da interface e da lógica de login e mensagens de notificação para orientar o usuário durante o processo de autenticação.
 
 Implementação da interface de recuperação de senha, integrando o fluxo de redefinição de acesso à funcionalidade desenvolvida no back-end.
+  </div>
 
 <br>
-<div align="center" style="margin: 30px;">
-<img src="./assets/login_timesync.png" style="display: block; margin: 30px auto; width: 70%;">
-  </div>
+<p align="center">
+<img src="./assets/login_timesync.png" style="display: block; margin: 10px auto; width: 80%;">
+  </p>
+<br>
 
-  </div>
 </details>
 
 <details style="margin-bottom: 15px;">
