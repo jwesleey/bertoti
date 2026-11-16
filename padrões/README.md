@@ -34,10 +34,10 @@ O projeto é um agente de base de conhecimento feito em Java com Spring AI, dese
 
 | Commit | O que foi feito |
 |--------|-----------------|
-| [`8e9eeff`](https://github.com/pedroquirino/Spring_IA/commit/8e9eeff) | **Configuração inicial**: ajuste do `application.properties` e atualização de dependências no `pom.xml`, com pequenos ajustes no `ChatController` e no `ChatService`. (4 arquivos, 14 inserções e 7 remoções) |
-| [`e35a0be`](https://github.com/pedroquirino/Spring_IA/commit/e35a0be) | **Estrutura base de State e Strategy**: reorganização do pacote para `fatec.catdevs.agent`, criação do `AgentContext`, `AgentState`, `AgentStateType`, `PlanningStrategy` e `ReActPlanner`. O `ChatService` passou a se chamar `AgentService`. (10 arquivos, 126 inserções e 30 remoções) |
-| [`271c34c`](https://github.com/pedroquirino/Spring_IA/commit/271c34c) | **Refatoração do State e interface Swing (Composite)**. Detalhada abaixo. (31 arquivos, 727 inserções e 171 remoções) |
-| [`4eefba3`](https://github.com/pedroquirino/Spring_IA/commit/4eefba3) | **Principal contribuição técnica**: Command, Observer, Strategy, conclusão do State, memória e acesso a arquivos. Detalhada abaixo. (34 arquivos, 842 inserções e 210 remoções) |
+| [`8e9eeff`](https://github.com/pedroquirino/Spring_IA/commit/8e9eeff) | **Configuração inicial**: ajuste do `application.properties` e atualização de dependências no `pom.xml`, com pequenos ajustes no `ChatController` e no `ChatService`. |
+| [`e35a0be`](https://github.com/pedroquirino/Spring_IA/commit/e35a0be) | **Estrutura base de State e Strategy**: reorganização do pacote para `fatec.catdevs.agent`, criação do `AgentContext`, `AgentState`, `AgentStateType`, `PlanningStrategy` e `ReActPlanner`. O `ChatService` passou a se chamar `AgentService`. |
+| [`271c34c`](https://github.com/pedroquirino/Spring_IA/commit/271c34c) | **Refatoração do State e interface Swing (Composite)**. Detalhada abaixo. |
+| [`4eefba3`](https://github.com/pedroquirino/Spring_IA/commit/4eefba3) | **Principal contribuição técnica**: Command, Observer, Strategy, conclusão do State, memória e acesso a arquivos. Detalhada abaixo. |
 
 <details>
 <summary><b>Detalhes do commit 271c34c</b> - refatoração do State e interface Swing</summary>
@@ -53,6 +53,7 @@ O projeto é um agente de base de conhecimento feito em Java com Spring AI, dese
 - **Organização:** a pasta `ai-demo` foi renomeada para `ia`, e os arquivos antigos (`WebSearchTool` e `AgentApplication` do pacote antigo) foram removidos.
 
 </details>
+<br>
 
 <details>
 <summary><b>Detalhes do commit 4eefba3</b> - padrões de projeto, memória e acesso a arquivos</summary>
