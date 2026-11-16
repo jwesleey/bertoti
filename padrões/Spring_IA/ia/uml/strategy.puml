@@ -1,0 +1,57 @@
+@startuml strategy
+hide empty members
+skinparam shadowing false
+skinparam linetype ortho
+skinparam classBackgroundColor #E9F7EF
+skinparam classBorderColor #3C8D5A
+skinparam noteBackgroundColor #FFFBE6
+skinparam noteBorderColor #C9B458
+title Padrão STRATEGY
+
+class PlanningState <<Context>> {
+    - strategy: PlanningStrategy
+    + setStrategy(strategy: PlanningStrategy)
+    + getStrategyName(): String
+    + handle(context: AgentContext)
+}
+
+interface PlanningStrategy <<Strategy>> {
+    + name(): String
+    + createPlan(userMessage: String): String
+}
+
+class ReActPlanner <<ConcreteStrategy>> {
+    + name(): String
+    + createPlan(userMessage: String): String
+}
+
+class PlanThenExecutePlanner <<ConcreteStrategy>> {
+    + name(): String
+    + createPlan(userMessage: String): String
+}
+
+class AgentService <<Client>> {
+    - planners: Map<String, PlanningStrategy>
+    + usePlanner(name: String)
+    + currentPlanner(): String
+}
+
+class PainelChat
+
+PlanningState --> PlanningStrategy : strategy
+PlanningStrategy <|.. ReActPlanner
+PlanningStrategy <|.. PlanThenExecutePlanner
+AgentService --> PlanningState : troca a strategy
+AgentService o--> "*" PlanningStrategy : planners
+PainelChat --> AgentService : usePlanner(nome)
+
+note right of AgentService
+  O usuário escolhe a estratégia
+  no JComboBox do PainelChat
+end note
+
+note bottom of ReActPlanner
+  Estratégia inicial (@Primary no Spring).
+  Troca em tempo de execução pelo JComboBox.
+end note
+@enduml

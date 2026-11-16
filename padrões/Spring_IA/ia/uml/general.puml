@@ -1,0 +1,129 @@
+@startuml general
+hide members
+skinparam shadowing false
+skinparam linetype ortho
+skinparam classBorderColor #555555
+skinparam packageStyle rectangle
+skinparam ArrowColor #444444
+skinparam nodesep 40
+skinparam ranksep 50
+title Visão Geral da Arquitetura - Agente de Base de Conhecimento
+
+legend right
+  <color:#4A6FA5>■</color> State
+  <color:#3C8D5A>■</color> Strategy
+  <color:#C77D1A>■</color> Command
+  <color:#8E44AD>■</color> Observer
+  <color:#C0392B>■</color> Composite (Swing)
+  <color:#888888>■</color> Infraestrutura
+endlegend
+
+' ============ GUI (COMPOSITE) ============
+package "ui" #FDF2F1 {
+    class ChatFrame #F5B7B1
+    class PainelChat #F5B7B1
+    interface ComponenteChat #F5B7B1
+    class PainelMensagens #F5B7B1
+    class BolhaMensagem #F5B7B1
+    class IndicadorDigitando #F5B7B1
+}
+
+' ============ INFRAESTRUTURA ============
+package "app / controller / service" #F4F4F4 {
+    class AgentApplication #DDDDDD
+    class ChatController #DDDDDD
+    class AgentService #DDDDDD
+    class ConversationMemory #DDDDDD
+}
+
+' ============ STRATEGY ============
+package "strategy" #EEF8F1 {
+    interface PlanningStrategy #A9DFBF
+    class ReActPlanner #A9DFBF
+    class PlanThenExecutePlanner #A9DFBF
+}
+
+' ============ STATE ============
+package "state" #EEF3FB {
+    class AgentContext #AED6F1
+    interface AgentState #AED6F1
+    class PlanningState #AED6F1
+    class ResearchState #AED6F1
+    class ExecutingState #AED6F1
+    class FinalState #AED6F1
+}
+
+' ============ COMMAND ============
+package "command / knowledge" #FEF7EC {
+    class CommandInvoker #F8C471
+    interface Command #F8C471
+    class SearchKnowledgeCommand #F8C471
+    class ListDocumentsCommand #F8C471
+    class VectorKnowledgeBase #FAD7A0
+    class KnowledgeBase #FAD7A0
+}
+
+' ============ OBSERVER ============
+package "observer" #F7F0FA {
+    class AgentEventPublisher #D7BDE2
+    interface AgentObserver #D7BDE2
+    class ConsoleLogObserver #D7BDE2
+    class AgentEvent #D7BDE2
+}
+
+'Aplicação ----------
+AgentApplication ..> ChatFrame
+ChatController --> AgentService
+ChatFrame --> PainelChat
+PainelChat --> AgentService
+AgentService --> ConversationMemory
+AgentService ..> AgentContext : cria
+AgentService --> PlanningState
+AgentService --> AgentEventPublisher
+
+' ---------- Composite ----------
+ComponenteChat <|.. PainelMensagens
+ComponenteChat <|.. BolhaMensagem
+ComponenteChat <|.. IndicadorDigitando
+PainelMensagens o--> "*" ComponenteChat
+PainelChat *--> PainelMensagens
+
+' ---------- State ----------
+AgentContext o--> AgentState
+AgentState <|.. PlanningState
+AgentState <|.. ResearchState
+AgentState <|.. ExecutingState
+AgentState <|.. FinalState
+PlanningState -> ResearchState
+ResearchState -> ExecutingState
+ExecutingState -> FinalState
+
+' ---------- Strategy ----------
+PlanningState --> PlanningStrategy
+PlanningStrategy <|.. ReActPlanner
+PlanningStrategy <|.. PlanThenExecutePlanner
+AgentService o--> "*" PlanningStrategy
+
+' ---------- Command ----------
+ResearchState --> CommandInvoker
+ResearchState ..> SearchKnowledgeCommand : cria
+ResearchState ..> ListDocumentsCommand : cria
+ResearchState --> KnowledgeBase
+ResearchState --> VectorKnowledgeBase
+CommandInvoker ..> Command : execute()
+Command <|.. SearchKnowledgeCommand
+Command <|.. ListDocumentsCommand
+SearchKnowledgeCommand --> VectorKnowledgeBase
+ListDocumentsCommand --> KnowledgeBase
+VectorKnowledgeBase --> KnowledgeBase
+
+' ---------- Observer ----------
+AgentEventPublisher o--> "*" AgentObserver
+AgentObserver <|.. ConsoleLogObserver
+AgentObserver <|.. PainelChat : (lambda)
+PainelChat ..> AgentService : addObserver()
+AgentEventPublisher ..> AgentEvent
+AgentContext --> AgentEventPublisher
+CommandInvoker --> AgentEventPublisher
+
+@enduml

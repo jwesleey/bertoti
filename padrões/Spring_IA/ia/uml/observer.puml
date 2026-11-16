@@ -1,0 +1,69 @@
+@startuml observer
+hide empty members
+skinparam shadowing false
+skinparam linetype ortho
+skinparam classBackgroundColor #F5EEF8
+skinparam classBorderColor #8E44AD
+skinparam noteBackgroundColor #FFFBE6
+skinparam noteBorderColor #C9B458
+title Padrão OBSERVER
+
+class AgentEventPublisher <<Publisher>> {
+    - observers: List<AgentObserver>
+    + attach(observer: AgentObserver)
+    + detach(observer: AgentObserver)
+    + publish(event: AgentEvent)
+}
+
+interface AgentObserver <<Subscriber>> {
+    + onEvent(event: AgentEvent)
+}
+
+class ConsoleLogObserver <<ConcreteSubscriber>> {
+    + onEvent(event: AgentEvent)
+}
+
+class PainelChat <<ConcreteSubscriber>>
+
+class AgentEvent <<record>> {
+    + type: Type
+    + message: String
+    + descricao(): String
+}
+
+enum "AgentEvent.Type" as EventType {
+    STATE_CHANGED
+    COMMAND_STARTED
+    COMMAND_FINISHED
+    COMMAND_FAILED
+    ERROR
+}
+
+class AgentService
+class AgentContext
+class CommandInvoker
+
+'estrutura do padrão
+AgentEventPublisher o--> "*" AgentObserver : observers
+AgentObserver <|.. ConsoleLogObserver
+AgentObserver <|.. PainelChat : (lambda)
+AgentEventPublisher ..> AgentEvent : publica
+AgentObserver ..> AgentEvent : recebe
+AgentEvent +-- EventType
+
+'registrar os observers
+ConsoleLogObserver ..> AgentEventPublisher : attach(this)
+PainelChat ..> AgentService : addObserver(...)
+AgentService --> AgentEventPublisher : attach(observer)
+
+'publicar eventos
+AgentContext --> AgentEventPublisher : publish(STATE_CHANGED)
+CommandInvoker --> AgentEventPublisher : publish(COMMAND_*)
+AgentService --> AgentEventPublisher : publish(ERROR)
+
+note bottom of PainelChat
+  Registrado via lambda em
+  service.addObserver(...)
+  e mostra o status na tela
+end note
+@enduml

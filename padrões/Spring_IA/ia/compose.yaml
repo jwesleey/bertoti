@@ -1,0 +1,14 @@
+services:
+  chroma:
+    image: ghcr.io/chroma-core/chroma:1.0.0
+    container_name: knowledge-assistant-chroma
+    ports:
+      - "8000:8000"
+    environment:
+      CHROMA_CORS_ALLOW_ORIGINS: '["http://localhost:8090"]'
+    volumes:
+      - chroma_data:/chroma/chroma
+    restart: unless-stopped
+
+volumes:
+  chroma_data:

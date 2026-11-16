@@ -1,0 +1,56 @@
+@startuml state
+hide empty members
+skinparam shadowing false
+skinparam linetype ortho
+skinparam classBackgroundColor #E8F0FE
+skinparam classBorderColor #4A6FA5
+skinparam noteBackgroundColor #FFFBE6
+skinparam noteBorderColor #C9B458
+title Padrão STATE
+
+class AgentContext <<Context>> {
+    - userMessage: String
+    - plan: String
+    - knowledge: String
+    - response: String
+    - history: String
+    - knowledgeFound: boolean
+    - state: AgentState
+    + run()
+    + setState(state: AgentState)
+    + getState(): AgentState
+}
+
+interface AgentState <<State>> {
+    + handle(context: AgentContext)
+    + name(): String
+    + isFinal(): boolean
+}
+
+class PlanningState <<ConcreteState>>
+class ResearchState <<ConcreteState>>
+class ExecutingState <<ConcreteState>>
+class FinalState <<ConcreteState>>
+
+AgentContext --> AgentState : state atual
+AgentState ..> AgentContext : handle(context)
+AgentState <|.. PlanningState
+AgentState <|.. ResearchState
+AgentState <|.. ExecutingState
+AgentState <|.. FinalState
+
+PlanningState -[#blue]-> ResearchState : next
+ResearchState -[#blue]-> ExecutingState : next
+ExecutingState -[#blue]-> FinalState : next
+
+note bottom of AgentContext
+  run() repete state.handle(this)
+  até isFinal() ser verdadeiro
+end note
+
+note bottom of FinalState
+  Cada estado decide o próximo chamando
+  context.setState(next). O FinalState
+  encerra o ciclo (isFinal() = true).
+end note
+@enduml

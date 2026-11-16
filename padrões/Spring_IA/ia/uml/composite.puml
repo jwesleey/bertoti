@@ -1,0 +1,68 @@
+@startuml composite
+hide empty members
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 70
+skinparam classBackgroundColor #FDEDEC
+skinparam classBorderColor #C0392B
+skinparam noteBackgroundColor #FFFBE6
+skinparam noteBorderColor #C9B458
+title Padrão COMPOSITE (Java Swing)
+
+interface ComponenteChat <<Component>> {
+    + getView(): JComponent
+    + getTexto(): String
+    + adicionar(filho: ComponenteChat)
+    + remover(filho: ComponenteChat)
+}
+
+class BolhaMensagem <<Leaf>> {
+    - texto: String
+    - doUsuario: boolean
+    + getView(): JComponent
+    + getTexto(): String
+}
+
+class IndicadorDigitando <<Leaf>> {
+    + getView(): JComponent
+    + getTexto(): String
+    + iniciar()
+    + parar(): long
+}
+
+class PainelMensagens <<Composite>> {
+    - filhos: List<ComponenteChat>
+    + adicionar(filho: ComponenteChat)
+    + remover(filho: ComponenteChat)
+    + getView(): JComponent
+    + getTexto(): String
+}
+
+class PainelChat <<Client>> {
+    - mensagens: PainelMensagens
+}
+
+ComponenteChat <|.down. BolhaMensagem
+ComponenteChat <|.down. IndicadorDigitando
+ComponenteChat <|.down. PainelMensagens
+
+PainelMensagens "1" o-left-> "*" ComponenteChat : filhos
+
+' --- cliente ---
+PainelMensagens <-down-* PainelChat
+
+BolhaMensagem -right[hidden]- IndicadorDigitando
+IndicadorDigitando -right[hidden]- PainelMensagens
+
+note bottom of BolhaMensagem
+  BolhaMensagem, IndicadorDigitando e
+  PainelMensagens estendem JPanel (Swing).
+end note
+
+note bottom of PainelChat
+  getTexto() percorre os filhos, ignora
+  textos vazios (ex.: IndicadorDigitando)
+  e junta o resto. Usado em "Copiar conversa".
+end note
+@enduml

@@ -1,0 +1,74 @@
+@startuml command
+hide empty members
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 60
+skinparam ranksep 60
+skinparam classBackgroundColor #FEF5E7
+skinparam classBorderColor #C77D1A
+skinparam noteBackgroundColor #FFFBE6
+skinparam noteBorderColor #C9B458
+title Padrão COMMAND
+
+class ResearchState <<Client>> {
+    + handle(context: AgentContext)
+}
+
+class SearchKnowledgeCommand <<ConcreteCommand>> {
+    - termo: String
+    + execute(): CommandResult
+}
+
+class CommandInvoker <<Invoker>> {
+    + run(command: Command): CommandResult
+}
+
+class ListDocumentsCommand <<ConcreteCommand>> {
+    + execute(): CommandResult
+}
+
+class VectorKnowledgeBase <<Receiver>> {
+    + buscar(consulta: String): List<String>
+}
+
+interface Command <<Command>> {
+    + name(): String
+    + execute(): CommandResult
+}
+
+class KnowledgeBase <<Receiver>> {
+    + listarDocumentos(): List<String>
+    + catalogo(): String
+}
+
+class CommandResult <<record>> {
+    + success: boolean
+    + output: String
+}
+
+SearchKnowledgeCommand -right[hidden]- CommandInvoker
+CommandInvoker -right[hidden]- ListDocumentsCommand
+VectorKnowledgeBase -right[hidden]- Command
+Command -right[hidden]- KnowledgeBase
+
+'Client
+ResearchState .down.> SearchKnowledgeCommand : cria
+ResearchState .down.> ListDocumentsCommand : cria
+ResearchState -down-> CommandInvoker : run(command)
+ResearchState --> KnowledgeBase : catalogo()
+
+'Invoker e Command
+CommandInvoker .down.> Command : execute()
+SearchKnowledgeCommand .down.|> Command
+ListDocumentsCommand .down.|> Command
+Command .down.> CommandResult : retorna
+
+'Receivers
+SearchKnowledgeCommand -down-> VectorKnowledgeBase : receiver
+ListDocumentsCommand -down-> KnowledgeBase : receiver
+
+note left of ResearchState
+  catalogo() é chamado direto,
+  sem passar por Command.
+end note
+@enduml
